@@ -32,8 +32,8 @@ Things worth a look:
 - **Documents are Word templates with tokens.** Open a school, then *Έγγραφα*: pick one of three prototype templates (a certificate,
   a performance report with a per-course grade table, an attendance statement) and a student. Tokens such as `{{ΟΝΟΜΑ}}` or
   `{{ΤΕΛΙΚΟΣ_ΒΑΘΜΟΣ}}` are replaced with that student's data, and a table row marked `{{ΠΙΝΑΚΑΣ_ΜΑΘΗΜΑΤΩΝ}}` is repeated once
-  per course. You get a live preview, a token check (recognised / unknown / image, with the value each token takes) and a `.docx`
-  download. You can also upload your own `.docx` containing tokens; it is read and filled in your browser and never uploaded.
+  per course. You get a live preview, a token check (recognised / unknown / image, with the value each token takes), a preview
+  of the raw template with its tokens visible, and a `.docx` download. You can also upload your own `.docx` containing tokens; it is read and filled in your browser and never uploaded.
 - **Status is derived, not stored.** Whether an enrollment is pending, active, completed or failed is computed from the dates,
   the grades and the absence cap.
 - **Service history is dated.** A person's rank and unit change over time; every enrollment keeps a snapshot, so a finished school
