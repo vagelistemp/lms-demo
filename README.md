@@ -15,19 +15,25 @@ assign teachers, and the **grades and absences** that decide who passes. The int
 
 | Role | What it shows |
 |---|---|
-| **Administrator** | Dashboard, people (search, filters, service history, education), directives, schools with grades / absences / statistics, reference data (ranks, units, grading scales, courses), approvals queue |
+| **Administrator** | Dashboard, people (search, filters, service history, education), directives, schools with grades / absences / statistics, **Word documents generated from templates with tokens**, reference data (ranks, units, grading scales, courses), approvals queue |
 | **Teacher** | Own courses and students, grade and absence submission (which then wait for approval) |
 | **Student** | Own grades, absences and the results of completed schools |
 | **Registration form** | The student registration form; what it collects waits in the administrator's approvals queue |
 
 Direct links: [administrator](https://vagelistemp.github.io/lms-demo/?role=admin#/dashboard) ·
 [teacher](https://vagelistemp.github.io/lms-demo/?role=teacher#/teacher) ·
-[student](https://vagelistemp.github.io/lms-demo/?role=student#/student)
+[student](https://vagelistemp.github.io/lms-demo/?role=student#/student) ·
+[document generation](https://vagelistemp.github.io/lms-demo/?role=admin#/schools/1?tab=diplomas)
 
 Things worth a look:
 
 - **A school is created by an order, not by hand.** A *template* directive carries the course list; enrolment, teacher
   assignment, drop-out, cancellation and swap directives then change who is in the school, and can be undone with a preview.
+- **Documents are Word templates with tokens.** Open a school, then *Έγγραφα*: pick one of three prototype templates (a certificate,
+  a performance report with a per-course grade table, an attendance statement) and a student. Tokens such as `{{ΟΝΟΜΑ}}` or
+  `{{ΤΕΛΙΚΟΣ_ΒΑΘΜΟΣ}}` are replaced with that student's data, and a table row marked `{{ΠΙΝΑΚΑΣ_ΜΑΘΗΜΑΤΩΝ}}` is repeated once
+  per course. You get a live preview, a token check (recognised / unknown / image, with the value each token takes) and a `.docx`
+  download. You can also upload your own `.docx` containing tokens; it is read and filled in your browser and never uploaded.
 - **Status is derived, not stored.** Whether an enrollment is pending, active, completed or failed is computed from the dates,
   the grades and the absence cap.
 - **Service history is dated.** A person's rank and unit change over time; every enrollment keeps a snapshot, so a finished school
@@ -42,8 +48,10 @@ The real application has a Spring Boot backend and a MySQL database. A static si
 the real backend running on a **synthetic data set** (invented people, units and schools; nothing from real life), and edits are
 applied to an in-memory copy. Nothing is sent anywhere.
 
-Some features work with files on the server (generating Excel and Word documents, backups, document templates). They appear in
-the menu but are disabled here, with a short note.
+The Word documents are generated in the browser from three neutral prototype templates, with the same token syntax the real
+application uses (the demo understands a subset of its token vocabulary). The remaining features that work with files on the
+server (Excel exports, the template library, movement orders, the registry, backups) appear in the menu but are disabled here,
+with a short note.
 
 ## The real application
 
@@ -67,6 +75,10 @@ This repository contains only the built demo. The application's source code is p
 <p>
   <img src="screenshots/07-directives.png" alt="Directives" width="49%">
   <img src="screenshots/08-admin-ranks.png" alt="Reference data" width="49%">
+</p>
+<p>
+  <img src="screenshots/12-documents-tab.png" alt="Document generation: template, student, token check" width="49%">
+  <img src="screenshots/13-document-preview.png" alt="Generated performance report, previewed in the page" width="49%">
 </p>
 <p>
   <img src="screenshots/09-teacher-portal.png" alt="Teacher portal" width="49%">
